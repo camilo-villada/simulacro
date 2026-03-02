@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Configuración básica del documento HTML -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Título visible en la pestaña del navegador -->
+  <title>ExpertSoft Fintech</title>
+  <!-- Hoja de estilos principal del frontend -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Barra de navegación con botones para alternar vistas -->
+  <nav>
+    <h1>ExpertSoft Fintech</h1>
+    <div>
+      <!-- Cada botón llama a showSection() para mostrar una sección -->
+      <button onclick="showSection('dashboard')">Dashboard</button>
+      <button onclick="showSection('clients')">Clients</button>
+      <button onclick="showSection('reports')">Reports</button>
+    </div>
+  </nav>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="section">
+    <h2>Dashboard</h2>
+    <!-- Tarjetas con métricas resumidas -->
+    <div class="cards">
+      <div class="card" id="card-clients">
+        <h3>Total Clients</h3>
+        <!-- Valor dinámico cargado desde app.js -->
+        <p id="total-clients">-</p>
+      </div>
+      <div class="card" id="card-platforms">
+        <h3>Platforms</h3>
+        <p id="total-platforms">-</p>
+      </div>
+      <div class="card" id="card-revenue">
+        <h3>Total Revenue</h3>
+        <p id="total-revenue">-</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
+  <section id="clients" class="section hidden">
+    <h2>Clients</h2>
+    <!-- Formulario para crear/editar clientes -->
+    <form id="client-form">
+      <!-- Campo oculto: si tiene valor, el submit hace UPDATE; si no, hace CREATE -->
+      <input type="hidden" id="client-id">
+      <input type="text" id="client-name" placeholder="Name" required>
+      <input type="email" id="client-email" placeholder="Email" required>
+      <input type="text" id="client-phone" placeholder="Phone" required>
+      <input type="text" id="client-city" placeholder="City" required>
+      <button type="submit">Save</button>
+      <!-- Limpia formulario y sale de modo edición -->
+      <button type="button" onclick="resetForm()">Cancel</button>
+    </form>
+    <!-- Tabla que se llena dinámicamente con la lista de clientes -->
+    <table>
+      <thead>
+        <tr>
+          <!-- Encabezados de columnas -->
+          <th>ID</th><th>Name</th><th>Email</th>
+          <th>Phone</th><th>City</th><th>Actions</th>
+        </tr>
+      </thead>
+      <!-- Cuerpo inyectado desde JavaScript -->
+      <tbody id="clients-table"></tbody>
+    </table>
+  </section>
+
+  <!-- REPORTS -->
+  <section id="reports" class="section hidden">
+    <h2>Reports</h2>
+    <!-- Botones para consultar distintos reportes del backend -->
+    <div class="report-buttons">
+      <button onclick="loadReport('top-clients')">Top Clients</button>
+      <button onclick="loadReport('ranking')">Ranking</button>
+      <button onclick="loadReport('worst-client')">Worst Client</button>
+      <button onclick="loadReport('empty-platforms')">Empty Platforms</button>
+    </div>
+    <!-- Contenedor de resultados de reportes (JSON renderizado) -->
+    <div id="report-result"></div>
+  </section>
+
+  <!-- Script principal del frontend -->
+  <script src="app.js"></script>
+</body>
+</html>
